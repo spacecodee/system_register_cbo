@@ -17,5 +17,5 @@ samples, guidance on mobile development, and a full API reference.
 
 ## commands
 
-- flutter packages pub run build_runner build
-- flutter packages pub run build_runner watch
+- `flutter packages pub run build_runner build`
+- `flutter packages pub run build_runner watch`

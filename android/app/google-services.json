@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "59812006941",
+    "project_id": "system-register-cbo",
+    "storage_bucket": "system-register-cbo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59812006941:android:edf7327473e9fd8731caf4",
+        "android_client_info": {
+          "package_name": "com.equipo01.system_register_cbo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59812006941-cm3vvia7eaus00bpnr0qk6n6krfca4cl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGJkQ60uT2EATs0ZAGrYmAVoMLZUvD4yw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59812006941-cm3vvia7eaus00bpnr0qk6n6krfca4cl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "59812006941-1l2psnrrqkqtldne27vj56u8v0msb8e0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.equipo1.systemRegisterCboEq1"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59812006941:android:61e9ff8446d8e1a631caf4",
+        "android_client_info": {
+          "package_name": "com.equipo1.system_register_cbo_eq1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59812006941-cm3vvia7eaus00bpnr0qk6n6krfca4cl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGJkQ60uT2EATs0ZAGrYmAVoMLZUvD4yw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59812006941-cm3vvia7eaus00bpnr0qk6n6krfca4cl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "59812006941-1l2psnrrqkqtldne27vj56u8v0msb8e0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.equipo1.systemRegisterCboEq1"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
