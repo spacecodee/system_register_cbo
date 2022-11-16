@@ -45,3 +45,4 @@ app.*.map.json
 
 #
 .env
+lib/src/routes/routes.gr.dart

@@ -12,9 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  auto_route: ^5.0.2
+  go_router: ^5.1.7
   cupertino_icons: ^1.0.2
-  dio: ^4.0.6
   flutter_dotenv: ^5.0.2
   firebase_core: ^2.2.0
   cloud_firestore: ^4.0.5
@@ -25,8 +24,6 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-  auto_route_generator: ^5.0.2
-  build_runner:
 
 flutter:
 

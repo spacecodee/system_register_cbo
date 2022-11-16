@@ -1,6 +1,5 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:system_register_cbo/src/routes/routes.gr.dart';
+import 'package:go_router/go_router.dart';
 import 'package:system_register_cbo/src/utils/sc_responsive.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,7 +23,7 @@ class HomePage extends StatelessWidget {
                   backgroundColor: Theme.of(context).backgroundColor,
                 ),
                 onPressed: () {
-                  context.router.push(const RegisterUserRoute());
+                  context.go('/register-user');
                 },
                 child: Text('Go to Register User Page'),
               ),
