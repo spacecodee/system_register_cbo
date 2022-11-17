@@ -10,20 +10,24 @@ String documentTypeDtoToJson(DocumentTypeDto data) => json.encode(data.toJson())
 
 class DocumentTypeDto {
   DocumentTypeDto({
-    required this.id,
-    required this.name,
+    this.id = "",
+    this.name = "",
+    this.number = 0,
   });
 
   final String name;
   final String id;
+  final int number;
 
   factory DocumentTypeDto.fromJson(Map<String, dynamic> json) => DocumentTypeDto(
         name: json["name"],
         id: json["id"],
+        number: json["number"],
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
         "id": id,
+        "number": number,
       };
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterUserPage extends StatelessWidget {
   const RegisterUserPage({Key? key}) : super(key: key);
@@ -11,6 +12,20 @@ class RegisterUserPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Row(
+            children: [
+              //flat button
+              TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).backgroundColor,
+                ),
+                onPressed: () {
+                  context.go('/');
+                },
+                child: Text('Go to Home Page'),
+              ),
+            ],
+          ),
         ],
       ),
     );
