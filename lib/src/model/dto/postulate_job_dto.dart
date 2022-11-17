@@ -10,14 +10,14 @@ String postulateJobDtoToJson(PostulateJobDto data) => json.encode(data.toJson())
 
 class PostulateJobDto {
   PostulateJobDto({
-    required this.postulateArea,
-    required this.postulateId,
-    required this.strengthsAbilities,
+    this.postulateArea = "",
+    this.postulateId = "",
+    this.strengthsAbilities = "",
   });
 
-  final String postulateArea;
-  final String postulateId;
-  final String strengthsAbilities;
+  String postulateArea;
+  String postulateId;
+  String strengthsAbilities;
 
   factory PostulateJobDto.fromJson(Map<String, dynamic> json) => PostulateJobDto(
         postulateArea: json["postulate_area"],

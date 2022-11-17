@@ -30,4 +30,9 @@ class DisabilityDto {
         "id": id,
         "name": name,
       };
+
+  @override
+  String toString() {
+    return 'DisabilityDto{id: $id, name: $name}';
+  }
 }

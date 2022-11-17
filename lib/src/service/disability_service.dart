@@ -8,4 +8,13 @@ class DisabilityService {
   static Stream<List<DisabilityDto>> listDisability = _collection
       .snapshots()
       .map((snapshot) => snapshot.docs.map((doc) => DisabilityDto.fromJson(doc.data())).toList());
+
+  static Future<bool> exists(String id) async {
+    bool exists = false;
+    await _collection.doc(id).get().then((value) {
+      exists = value.exists;
+    });
+
+    return exists;
+  }
 }

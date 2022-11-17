@@ -24,18 +24,18 @@ class PostulantDto {
     this.phoneNumber = "",
   });
 
-  final String id;
-  final String address;
-  final String birthDate;
-  final String disabilityId;
-  final String documentTypeId;
-  final String email;
-  final String genre;
-  final String lastnameFather;
-  final String lastnameMother;
-  final String maritalStatus;
-  final String names;
-  final String phoneNumber;
+  String id;
+  String address;
+  String birthDate;
+  String disabilityId;
+  String documentTypeId;
+  String email;
+  String genre;
+  String lastnameFather;
+  String lastnameMother;
+  String maritalStatus;
+  String names;
+  String phoneNumber;
 
   factory PostulantDto.fromJson(Map<String, dynamic> json) => PostulantDto(
         id: json["id"],

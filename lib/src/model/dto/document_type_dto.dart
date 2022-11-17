@@ -15,9 +15,9 @@ class DocumentTypeDto {
     this.number = 0,
   });
 
-  final String name;
-  final String id;
-  final int number;
+  String name;
+  String id;
+  int number;
 
   factory DocumentTypeDto.fromJson(Map<String, dynamic> json) => DocumentTypeDto(
         name: json["name"],
