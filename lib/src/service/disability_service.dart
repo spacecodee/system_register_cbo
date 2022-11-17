@@ -17,4 +17,13 @@ class DisabilityService {
 
     return exists;
   }
+
+  static Future<String> getIdByName(String name) async {
+    String id = '';
+    await _collection.where('name', isEqualTo: name).get().then((value) {
+      id = value.docs.first.id;
+    });
+
+    return id;
+  }
 }

@@ -13,8 +13,8 @@ class PostulateService {
       return "";
     }
 
-    final disability = await DisabilityService.exists(vo.disabilityId);
-    if (!disability) {
+    final disability = await DisabilityService.getIdByName(vo.disabilityId);
+    if (disability.isEmpty) {
       return "";
     }
 
@@ -22,7 +22,7 @@ class PostulateService {
 
     PostulantDto dto = PostulantDto();
     dto.documentTypeId = documentType;
-    dto.disabilityId = vo.disabilityId;
+    dto.disabilityId = disability;
     dto.names = vo.names;
     dto.lastnameFather = vo.lastnameFather;
     dto.lastnameMother = vo.lastnameMother;

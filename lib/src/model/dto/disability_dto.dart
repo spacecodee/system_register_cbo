@@ -18,8 +18,8 @@ class DisabilityDto {
     this.name = "",
   });
 
-  final String id;
-  final String name;
+  String id;
+  String name;
 
   factory DisabilityDto.fromJson(Map<String, dynamic> json) => DisabilityDto(
         id: json["id"],

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:system_register_cbo/src/model/dto/document_type_dto.dart';
-import 'package:system_register_cbo/src/model/vo/postulant_vo.dart';
-import 'package:system_register_cbo/src/model/vo/postulate_job_vo.dart';
-import 'package:system_register_cbo/src/service/postulate_job_service.dart';
+import 'package:go_router/go_router.dart';
 import 'package:system_register_cbo/src/utils/sc_responsive.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,8 +23,8 @@ class HomePage extends StatelessWidget {
                   backgroundColor: Theme.of(context).backgroundColor,
                 ),
                 onPressed: () {
-                  //context.go('/register-user');
-                  final documentType = DocumentTypeDto(name: "dni", number: 96541210);
+                  context.go('/register-user');
+                  /*final documentType = DocumentTypeDto(name: "dni", number: 96541210);
 
                   final postulante = PostulanteVo(
                     names: "Juan",
@@ -48,7 +45,7 @@ class HomePage extends StatelessWidget {
                     strengthsAbilities: "Excelente",
                   );
 
-                  PostulateJobService.add(postulateJob).then((value) => print("add = $value"));
+                  PostulateJobService.add(postulateJob).then((value) => print("add = $value"));*/
                 },
                 child: Text('Go to Register User Page'),
               ),
