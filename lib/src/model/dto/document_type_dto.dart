@@ -30,4 +30,9 @@ class DocumentTypeDto {
         "id": id,
         "number": number,
       };
+
+  @override
+  String toString() {
+    return 'DocumentTypeDto{name: $name, id: $id, number: $number}';
+  }
 }

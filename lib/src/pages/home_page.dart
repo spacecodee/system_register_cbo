@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:system_register_cbo/src/utils/sc_colors.dart';
 import 'package:system_register_cbo/src/utils/sc_responsive.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,47 +12,40 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: const Text('Página de postulantes'),
       ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              //flat button
-              TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Theme.of(context).backgroundColor,
+      body: Padding(
+        padding: EdgeInsets.all(responsive.heightPercentage(1)),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: ScColors.accent,
+                    backgroundColor: Theme.of(context).backgroundColor,
+                  ),
+                  onPressed: () {
+                    context.go('/register-user');
+                  },
+                  child: const Text('Registrar Postulante'),
                 ),
-                onPressed: () {
-                  context.go('/register-user');
-                  /*final documentType = DocumentTypeDto(name: "dni", number: 96541210);
-
-                  final postulante = PostulanteVo(
-                    names: "Juan",
-                    lastnameFather: "Perez",
-                    lastnameMother: "Perez",
-                    phoneNumber: "965412145",
-                    address: "Av. Los Alamos 123",
-                    birthDate: "12/12/1990",
-                    disabilityId: "0QU2Jf5T3Uaf885Br0GA",
-                    email: "juanperez@gmail.com",
-                    genre: "M",
-                    maritalStatus: "S",
-                    documentTypeId: documentType,
-                  );
-                  final postulateJob = PostulateJobVo(
-                    postulateArea: "5Cwk6BUHbEEHaV7B39Fu",
-                    postulateId: postulante,
-                    strengthsAbilities: "Excelente",
-                  );
-
-                  PostulateJobService.add(postulateJob).then((value) => print("add = $value"));*/
-                },
-                child: Text('Go to Register User Page'),
-              ),
-            ],
-          ),
-        ],
+                SizedBox(width: responsive.diagonalPercentage(1)),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: ScColors.accent,
+                    backgroundColor: Theme.of(context).backgroundColor,
+                  ),
+                  onPressed: () {
+                    context.go('/get-job');
+                  },
+                  child: const Text('Registrar Postulante en area'),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

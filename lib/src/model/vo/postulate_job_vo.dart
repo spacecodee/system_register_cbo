@@ -1,5 +1,3 @@
-import 'package:system_register_cbo/src/model/vo/postulant_vo.dart';
-
 class PostulateJobVo {
   PostulateJobVo({
     required this.postulateArea,
@@ -8,6 +6,11 @@ class PostulateJobVo {
   });
 
   final String postulateArea;
-  final PostulanteVo postulateId;
+  final String postulateId;
   final String strengthsAbilities;
+
+  @override
+  String toString() {
+    return 'PostulateJobVo{postulateArea: $postulateArea, postulateId: $postulateId, strengthsAbilities: $strengthsAbilities}';
+  }
 }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:system_register_cbo/src/components/form_item_design.dart';
+import 'package:system_register_cbo/src/model/dto/document_type_dto.dart';
+import 'package:system_register_cbo/src/model/vo/postulant_vo.dart';
 import 'package:system_register_cbo/src/service/disability_service.dart';
+import 'package:system_register_cbo/src/service/postulate_service.dart';
 import 'package:system_register_cbo/src/utils/sc_responsive.dart';
 
 class RegisterUserPage extends StatefulWidget {
@@ -15,9 +20,14 @@ class RegisterUserPageState extends State<RegisterUserPage> {
   var identityDocument = 'DNI', disabilityValue;
   late String gender = 'hombre';
   late String maritalStatus = 'soltero';
-  final nameCtrl = TextEditingController();
-  final emailCtrl = TextEditingController();
-  final mobileCtrl = TextEditingController();
+  final dniNumber = TextEditingController();
+  final name = TextEditingController();
+  final lastnameFather = TextEditingController();
+  final lastnameMother = TextEditingController();
+  final email = TextEditingController();
+  final numberPhone = TextEditingController();
+  final address = TextEditingController();
+  final nacimiento = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,60 +49,53 @@ class RegisterUserPageState extends State<RegisterUserPage> {
     );
   }
 
-  formItemsDesign(icon, item) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 7),
-      child: Card(child: ListTile(leading: Icon(icon), title: item)),
-    );
-  }
-
   Widget formUI() {
     return Column(
       children: [
-        formItemsDesign(
-          Icons.person,
-          identifyDocument(),
+        FormItemDesign(
+          icon: Icons.person,
+          item: identifyDocument(),
         ),
-        formItemsDesign(
-          Icons.phone,
-          TextFormField(
-            controller: mobileCtrl,
+        FormItemDesign(
+          icon: Icons.insert_drive_file,
+          item: TextFormField(
+            controller: dniNumber,
             decoration: const InputDecoration(
               labelText: 'Documento de identidad',
             ),
             keyboardType: TextInputType.number,
           ),
         ),
-        formItemsDesign(
-          Icons.person,
-          TextFormField(
-            controller: nameCtrl,
+        FormItemDesign(
+          icon: Icons.person,
+          item: TextFormField(
+            controller: name,
             decoration: const InputDecoration(
               labelText: 'Nombres',
             ),
           ),
         ),
-        formItemsDesign(
-          Icons.person,
-          TextFormField(
-            controller: nameCtrl,
+        FormItemDesign(
+          icon: Icons.person,
+          item: TextFormField(
+            controller: lastnameFather,
             decoration: const InputDecoration(
               labelText: 'Apellido Paterno',
             ),
           ),
         ),
-        formItemsDesign(
-          Icons.person,
-          TextFormField(
-            controller: nameCtrl,
+        FormItemDesign(
+          icon: Icons.person,
+          item: TextFormField(
+            controller: lastnameMother,
             decoration: const InputDecoration(
               labelText: 'Apellido Materno',
             ),
           ),
         ),
-        formItemsDesign(
-          Icons.account_circle_sharp,
-          Column(
+        FormItemDesign(
+          icon: Icons.account_circle_sharp,
+          item: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -122,51 +125,53 @@ class RegisterUserPageState extends State<RegisterUserPage> {
             ],
           ),
         ),
-        formItemsDesign(
-          Icons.email,
-          TextFormField(
-            controller: emailCtrl,
+        FormItemDesign(
+          icon: Icons.email,
+          item: TextFormField(
+            controller: email,
             decoration: const InputDecoration(
               labelText: 'Email',
             ),
             keyboardType: TextInputType.emailAddress,
           ),
         ),
-        formItemsDesign(
-          Icons.email,
-          TextFormField(
-            controller: emailCtrl,
+        FormItemDesign(
+          icon: Icons.email,
+          item: TextFormField(
+            controller: numberPhone,
             decoration: const InputDecoration(
               labelText: 'Número de teléfono',
             ),
             keyboardType: TextInputType.emailAddress,
           ),
         ),
-        formItemsDesign(
-          Icons.account_circle_outlined,
-          TextFormField(
+        FormItemDesign(
+          icon: Icons.account_circle_outlined,
+          item: TextFormField(
+            controller: address,
             decoration: const InputDecoration(
               labelText: 'Dirección',
             ),
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.text,
           ),
         ),
-        formItemsDesign(
-          Icons.account_circle_outlined,
-          TextFormField(
+        FormItemDesign(
+          icon: Icons.account_circle_outlined,
+          item: TextFormField(
+            controller: nacimiento,
             decoration: const InputDecoration(
               labelText: 'Fecha de nacimiento',
             ),
             keyboardType: TextInputType.text,
           ),
         ),
-        formItemsDesign(
-          Icons.person,
-          disabilityValueCombo(),
+        FormItemDesign(
+          icon: Icons.person,
+          item: disabilityValueCombo(),
         ),
-        formItemsDesign(
-          Icons.account_circle_sharp,
-          Column(
+        FormItemDesign(
+          icon: Icons.account_circle_sharp,
+          item: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -230,7 +235,27 @@ class RegisterUserPageState extends State<RegisterUserPage> {
   }
 
   save() {
-    print(identityDocument);
+    final documentType = DocumentTypeDto(name: identityDocument, number: int.parse(dniNumber.value.text));
+    final postulantVo = PostulanteVo(
+      documentTypeId: documentType,
+      names: name.value.text,
+      lastnameFather: lastnameFather.value.text,
+      lastnameMother: lastnameMother.value.text,
+      phoneNumber: numberPhone.value.text,
+      address: address.value.text,
+      birthDate: nacimiento.value.text,
+      disabilityId: disabilityValue.toString().trim(),
+      email: email.value.text,
+      genre: gender,
+      maritalStatus: maritalStatus,
+    );
+
+    PostulateService.add(postulantVo).then((value) {
+      if (value.isNotEmpty) {
+        clearForm();
+        context.go('/get-job');
+      }
+    });
   }
 
   identifyDocument() {
@@ -288,5 +313,20 @@ class RegisterUserPageState extends State<RegisterUserPage> {
         }
       },
     );
+  }
+
+  void clearForm() {
+    identityDocument = 'DNI';
+    disabilityValue;
+    gender = 'hombre';
+    'soltero';
+    dniNumber.clear();
+    name.clear();
+    lastnameFather.clear();
+    lastnameMother.clear();
+    email.clear();
+    numberPhone.clear();
+    address.clear();
+    nacimiento.clear();
   }
 }

@@ -13,8 +13,8 @@ class PostulateService {
       return "";
     }
 
-    final disability = await DisabilityService.getIdByName(vo.disabilityId);
-    if (disability.isEmpty) {
+    final disability = await DisabilityService.exists(vo.disabilityId);
+    if (!disability) {
       return "";
     }
 
@@ -22,7 +22,7 @@ class PostulateService {
 
     PostulantDto dto = PostulantDto();
     dto.documentTypeId = documentType;
-    dto.disabilityId = disability;
+    dto.disabilityId = vo.disabilityId;
     dto.names = vo.names;
     dto.lastnameFather = vo.lastnameFather;
     dto.lastnameMother = vo.lastnameMother;
@@ -44,4 +44,13 @@ class PostulateService {
       return "";
     }
   }
+
+  static Future<bool> existById(String id) async {
+    final docRef = _collection.doc(id);
+    final doc = await docRef.get();
+    return doc.exists;
+  }
+
+  static Stream<List<PostulantDto>> listPostulante =
+      _collection.snapshots().map((snapshot) => snapshot.docs.map((doc) => PostulantDto.fromJson(doc.data())).toList());
 }

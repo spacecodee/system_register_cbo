@@ -32,4 +32,9 @@ class PostulanteVo {
   final String maritalStatus;
   final String names;
   final String phoneNumber;
+
+  @override
+  String toString() {
+    return 'PostulanteVo{id: $id, address: $address, birthDate: $birthDate, disabilityId: $disabilityId, documentTypeId: $documentTypeId, email: $email, genre: $genre, lastnameFather: $lastnameFather, lastnameMother: $lastnameMother, maritalStatus: $maritalStatus, names: $names, phoneNumber: $phoneNumber}';
+  }
 }

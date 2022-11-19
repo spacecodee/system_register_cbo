@@ -10,19 +10,18 @@ class PostulateJobService {
 
   static Future<bool> add(PostulateJobVo vo) async {
     final areaExist = await PostulateAreaService.exists(vo.postulateArea);
-
     if (!areaExist) {
       return false;
     }
 
-    final postulateId = await PostulateService.add(vo.postulateId);
-    if (postulateId == "") {
+    final postulateId = await PostulateService.existById(vo.postulateId);
+    if (!postulateId) {
       return false;
     }
 
     PostulateJobDto dto = PostulateJobDto();
-    dto.postulateArea = vo.postulateArea;
-    dto.postulateId = postulateId;
+    dto.postulateArea = vo.postulateArea.toString().trim();
+    dto.postulateId = vo.postulateId.toString().trim();
     dto.strengthsAbilities = vo.strengthsAbilities;
 
     try {
