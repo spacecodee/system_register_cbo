@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:system_register_cbo/src/service/postulate_job_service.dart';
 import 'package:system_register_cbo/src/utils/sc_colors.dart';
 import 'package:system_register_cbo/src/utils/sc_responsive.dart';
 
@@ -12,12 +13,9 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Página de postulantes'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(responsive.heightPercentage(1)),
-        child: Column(
+        title: Column(
           children: [
+            const Text('Página de postulantes'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -46,6 +44,25 @@ class HomePage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      body: FutureBuilder(
+        future: PostulateJobService.lista(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data?.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text('${snapshot.data?[index].postulateId.toString()}'),
+                subtitle: Text('${snapshot.data?[index].postulateArea.toString()}'),
+              );
+            },
+          );
+        },
       ),
     );
   }
