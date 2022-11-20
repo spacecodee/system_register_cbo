@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:system_register_cbo/src/components/form_item_design.dart';
@@ -21,6 +22,14 @@ class _GetJobPageState extends State<GetJobPage> {
   @override
   Widget build(BuildContext context) {
     final responsive = SCResponsive.of(context);
+    final dialog = AwesomeDialog(
+      autoHide: const Duration(seconds: 3),
+      context: context,
+      dialogType: DialogType.info,
+      animType: AnimType.rightSlide,
+      title: 'Usuario duplicado',
+      desc: 'Este usuario ya está en una area',
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -30,67 +39,63 @@ class _GetJobPageState extends State<GetJobPage> {
         child: Container(
           padding: EdgeInsets.all(responsive.diagonalPercentage(1.5)),
           child: Form(
-            child: formUI(),
+            child: Column(
+              children: [
+                FormItemDesign(
+                  icon: Icons.person,
+                  item: peopleCombo(),
+                ),
+                FormItemDesign(
+                  icon: Icons.person,
+                  item: areaCombo(),
+                ),
+                FormItemDesign(
+                  icon: Icons.insert_drive_file,
+                  item: TextFormField(
+                    controller: strengthsAbilities,
+                    decoration: const InputDecoration(
+                      labelText: 'Fortalezas y Habilidades',
+                    ),
+                    keyboardType: TextInputType.text,
+                    maxLength: 100,
+                    maxLines: 4,
+                    minLines: 1,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    save(dialog);
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(30.0),
+                    alignment: Alignment.center,
+                    decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFF0EDED2),
+                          Color(0xFF03A0FE),
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    padding: const EdgeInsets.only(top: 16, bottom: 16),
+                    child: const Text(
+                      "Guardar",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
-    );
-  }
-
-  Widget formUI() {
-    return Column(
-      children: [
-        FormItemDesign(
-          icon: Icons.person,
-          item: peopleCombo(),
-        ),
-        FormItemDesign(
-          icon: Icons.person,
-          item: areaCombo(),
-        ),
-        FormItemDesign(
-          icon: Icons.insert_drive_file,
-          item: TextFormField(
-            controller: strengthsAbilities,
-            decoration: const InputDecoration(
-              labelText: 'Fortalezas y Habilidades',
-            ),
-            keyboardType: TextInputType.text,
-            maxLength: 100,
-            maxLines: 4,
-            minLines: 1,
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            save();
-          },
-          child: Container(
-            margin: const EdgeInsets.all(30.0),
-            alignment: Alignment.center,
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-              gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF0EDED2),
-                  Color(0xFF03A0FE),
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-            padding: const EdgeInsets.only(top: 16, bottom: 16),
-            child: const Text(
-              "Guardar",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        )
-      ],
     );
   }
 
@@ -174,7 +179,7 @@ class _GetJobPageState extends State<GetJobPage> {
     );
   }
 
-  void save() {
+  void save(AwesomeDialog awesomeDialog) {
     final postulateJob = PostulateJobVo(
       postulateId: peopleValue.toString().trim(),
       postulateArea: postulateAreaValue.toString().trim(),
@@ -184,6 +189,8 @@ class _GetJobPageState extends State<GetJobPage> {
       if (value) {
         strengthsAbilities.clear();
         context.go('/');
+      } else {
+        awesomeDialog.show();
       }
     });
   }

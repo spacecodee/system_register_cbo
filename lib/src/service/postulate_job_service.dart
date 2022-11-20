@@ -11,7 +11,42 @@ class PostulateJobService {
   static final _collectionPostulante = _instance.collection('postulant');
   static final _collectionArea = _instance.collection('postulate_area');
 
+  static Future<List<PostulateJobListDto>> lista() async {
+    List<PostulateJobListDto> list = [];
+
+    final jobs = await _collectionJob.get();
+    final postulantes = await _collectionPostulante.get();
+    final areas = await _collectionArea.get();
+
+    for (var job in jobs.docs) {
+      for (var postulante in postulantes.docs) {
+        for (var area in areas.docs) {
+          if (area['id'].toString().contains(job['postulate_area'])) {
+            if (postulante['id'].toString().contains(job['postulate_id'])) {
+              list.add(PostulateJobListDto(
+                postulateId: postulante['names'],
+                strengthsAbilities: job['strengths_abilities'],
+                postulateArea: area['name'],
+              ));
+            }
+          }
+        }
+      }
+    }
+
+    return list;
+  }
+
+  static Future<bool> existByPostulantId(String id) {
+    return _collectionJob.where('postulate_id', isEqualTo: id).get().then((value) => value.docs.isNotEmpty);
+  }
+
   static Future<bool> add(PostulateJobVo vo) async {
+    final alreadyExist = await existByPostulantId(vo.postulateId);
+    if (alreadyExist) {
+      return false;
+    }
+
     final areaExist = await PostulateAreaService.exists(vo.postulateArea);
     if (!areaExist) {
       return false;
@@ -33,30 +68,5 @@ class PostulateJobService {
     } catch (e) {
       return false;
     }
-  }
-
-  static Stream<List<PostulateJobListDto>> listAreas() {
-    return _collectionJob
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((doc) => PostulateJobListDto.fromJson(doc.data())).toList());
-  }
-
-  static Future<List<PostulateJobListDto>> lista() async {
-    List<PostulateJobListDto> list = [];
-
-    final jobs = await _collectionJob.get();
-    final postulantes = await _collectionPostulante.get();
-    final areas = await _collectionArea.get();
-
-    for (var job in jobs.docs) {
-      for (var postulante in postulantes.docs) {
-        final postulate = PostulateJobListDto();
-        final getSome = postulante.data().keys.where((element) => element == 'names');
-        print('postulante: $getSome');
-        //print(postulate);
-      }
-    }
-
-    return list;
   }
 }
